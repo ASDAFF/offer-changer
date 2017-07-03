@@ -22,7 +22,6 @@ $MESS["PWD_OFFER_CHANGER_INSTALL_ERROR_VERSION"] = "Версия главног�
 
 $MESS["PWD_OFFER_CHANGER_INSTALL_TITLE"] = "Удаление модуля подмены офферов";
 
-#работа с .settings.php
 $MESS["PWD_OFFER_CHANGER_INSTALL_COUNT"] = "Количество установок модуля: ";
 $MESS["PWD_OFFER_CHANGER_UNINSTALL_COUNT"] = "Количество удалений модуля: ";
 
@@ -31,4 +30,3 @@ $MESS["HIGHLOADBLOCK_DELETING_INFO_ERROR"] = "Во время деинсталя
 $MESS["HIGHLOADBLOCK_DELETING_NOT_FOUND"] = "Справочник подмен офферов не найден";
 
 $MESS["PWD_OFFER_CHANGER_NO_CACHE"] = 'Внимание, на сайте выключено кеширование!<br>Возможно замедление в работе модуля.';
-#работа с .settings.php

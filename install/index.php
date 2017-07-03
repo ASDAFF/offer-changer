@@ -22,6 +22,13 @@ use Bitrix\Main\Entity;
 use Bitrix\Main\SystemException;
 
 Loc::loadMessages(__FILE__);
+
+if (class_exists('pwd_offer_changer')) {
+    return;
+}
+
+
+
 Class pwd_offer_changer extends CModule
 {
     var $exclusionAdminFiles;
@@ -61,6 +68,10 @@ Class pwd_offer_changer extends CModule
 		)
 	);
 
+    protected $eventHandlers = array();
+    
+    
+
 	function __construct()
 	{
 		$arModuleVersion = array();
@@ -78,6 +89,29 @@ Class pwd_offer_changer extends CModule
         $this->MODULE_SORT = 1;
         $this->SHOW_SUPER_ADMIN_GROUP_RIGHTS='Y';
         $this->MODULE_GROUP_RIGHTS = "Y";
+
+
+
+        $this->eventHandlers = array(
+            array(
+                'main',
+                'OnPageStart',
+                '\Pwd\Offer\Changer\Module',
+                'onPageStart',
+            ),
+            array(
+                'main',
+                'OnAfterEpilog',
+                '\Pwd\Offer\Changer\Module',
+                'onAfterEpilog',
+            ),
+            array(
+                'main',
+                'OnBeforeProlog',
+                '\Pwd\Offer\Changer\Module',
+                'onAfterEpilog',
+            ),
+        );
 	}
 
     //Определяем место размещения модуля
@@ -226,9 +260,40 @@ Class pwd_offer_changer extends CModule
 		$this->removeHL();
     }
 
-	function InstallEvents(){}
+	function InstallEvents(){
 
-	function UnInstallEvents(){}
+        $eventManager = \Bitrix\Main\EventManager::getInstance();
+
+        foreach($this->eventHandlers as $handler) {
+            $eventManager->registerEventHandler(
+                $handler[0],
+                $handler[1],
+                $this->MODULE_ID,
+                $handler[2],
+                $handler[3]
+            );
+        }
+
+        return true;
+    }
+
+	function UnInstallEvents(){
+
+        $eventManager = \Bitrix\Main\EventManager::getInstance();
+
+        foreach($this->eventHandlers as $handler) {
+            $eventManager->unRegisterEventHandler(
+                $handler[0],
+                $handler[1],
+                $this->MODULE_ID,
+                $handler[2],
+                $handler[3]
+            );
+        }
+
+        return true;
+
+    }
 
 	function InstallFiles($arParams = array())
 	{
@@ -246,7 +311,7 @@ Class pwd_offer_changer extends CModule
 
 	function UnInstallFiles()
 	{
-        Directory::deleteDirectory($_SERVER["DOCUMENT_ROOT"] . '/bitrix/components/offer.changer/');
+        Directory::deleteDirectory($_SERVER["DOCUMENT_ROOT"] . '/bitrix/components/pwd/offer.changer/');
         
 		return true;
 	}
@@ -261,11 +326,11 @@ Class pwd_offer_changer extends CModule
 		global $APPLICATION;
         if($this->isVersionD7())
         {
-            ModuleManager::registerModule($this->MODULE_ID);
-
             $this->InstallDB();
             $this->InstallEvents();
             $this->InstallFiles();
+
+            ModuleManager::registerModule($this->MODULE_ID);
         }
         else
         {
