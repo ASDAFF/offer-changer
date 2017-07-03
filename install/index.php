@@ -32,14 +32,32 @@ Class pwd_offer_changer extends CModule
 		'UF_PARAMETER' => array(
 			'MANDATORY' => 'N',
 			'USER_TYPE_ID' => 'string',
+            'EDIT_FORM_LABEL' => [
+                'ru' => 'Значение параметра, инициализирующего замену',
+            ],
+            'LIST_COLUMN_LABEL' => [
+                'ru' => 'Значение параметра, инициализирующего замену',
+            ],
 		),
 		'UF_OFFER' => array(
 			'MANDATORY' => 'N',
 			'USER_TYPE_ID' => 'string',
+            'EDIT_FORM_LABEL' => [
+                'ru' => 'Оффер',
+            ],
+            'LIST_COLUMN_LABEL' => [
+                'ru' => 'Оффер',
+            ],
 		),
 		'UF_BANNER' => array(
 			'MANDATORY' => 'N',
 			'USER_TYPE_ID' => 'file',
+            'EDIT_FORM_LABEL' => [
+                'ru' => 'Баннер',
+            ],
+            'LIST_COLUMN_LABEL' => [
+                'ru' => 'Баннер',
+            ],
 		)
 	);
 
@@ -140,12 +158,8 @@ Class pwd_offer_changer extends CModule
 						'EDIT_IN_LIST'      => 'Y',
 						'IS_SEARCHABLE'     => 'N',
 						'SETTINGS'          => array(),
-						'EDIT_FORM_LABEL'   => array(
-							'ru' => 'Значение параметра, инициализирующего замену',
-						),
-						'LIST_COLUMN_LABEL' => array(
-							'ru' => 'Значение параметра, инициализирующего замену',
-						),
+						'EDIT_FORM_LABEL'   => $arField['EDIT_FORM_LABEL'],
+						'LIST_COLUMN_LABEL' => $arField['LIST_COLUMN_LABEL'],
 					);
 
 					$fieldId = $obUField->Add($arFieldProps);
