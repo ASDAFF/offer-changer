@@ -8,7 +8,7 @@
  * @date		$Date$
  */
 
-namespace Pwd\Offer\Changer;
+namespace Pwd\Offerchanger;
 
 use Bitrix\Main\Context;
 

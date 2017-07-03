@@ -9,7 +9,7 @@
  * файл include.php
  */
 
-namespace Pwd\Offer\Changer;
+namespace Pwd\Offerchanger;
 
 /**
  * Базовый каталог модуля
@@ -17,5 +17,5 @@ namespace Pwd\Offer\Changer;
 const BASE_DIR = __DIR__;
 
 
-$event = new \Bitrix\Main\Event('pwd.offer.changer', 'onModuleInclude');
+$event = new \Bitrix\Main\Event('pwd.offerchanger', 'onModuleInclude');
 $event->send();

@@ -23,13 +23,13 @@ use Bitrix\Main\SystemException;
 
 Loc::loadMessages(__FILE__);
 
-if (class_exists('pwd_offer_changer')) {
+if (class_exists('pwd_offerchanger')) {
     return;
 }
 
 
 
-Class pwd_offer_changer extends CModule
+Class pwd_offerchanger extends CModule
 {
     var $exclusionAdminFiles;
 	var $hlName = 'OfferChanger';
@@ -77,7 +77,7 @@ Class pwd_offer_changer extends CModule
 		$arModuleVersion = array();
 		include(__DIR__."/version.php");
 
-        $this->MODULE_ID = 'pwd.offer.changer';
+        $this->MODULE_ID = 'pwd.offerchanger';
 		$this->MODULE_VERSION = $arModuleVersion["VERSION"];
 		$this->MODULE_VERSION_DATE = $arModuleVersion["VERSION_DATE"];
 		$this->MODULE_NAME = Loc::getMessage("PWD_OFFER_CHANGER_MODULE_NAME");
@@ -96,19 +96,19 @@ Class pwd_offer_changer extends CModule
             array(
                 'main',
                 'OnPageStart',
-                '\Pwd\Offer\Changer\Module',
+                '\Pwd\Offerchanger\Module',
                 'onPageStart',
             ),
             array(
                 'main',
                 'OnAfterEpilog',
-                '\Pwd\Offer\Changer\Module',
+                '\Pwd\Offerchanger\Module',
                 'onAfterEpilog',
             ),
             array(
                 'main',
                 'OnBeforeProlog',
-                '\Pwd\Offer\Changer\Module',
+                '\Pwd\Offerchanger\Module',
                 'onAfterEpilog',
             ),
         );
