@@ -130,6 +130,10 @@ Class pwd_offerchanger extends CModule
         );
 	}
 
+	public function getModuleId(){
+	    return $this->MODULE_ID;
+    }
+
     //Определяем место размещения модуля
     public function GetPath($notDocumentRoot=false)
     {

@@ -14,6 +14,11 @@ use Bitrix\Main\Context,
     \Pwd\Offerchanger\Utils,
     \Pwd\Offerchanger\HL;
 
+
+
+use Bitrix\Main\Config\Option;
+
+
 /**
  * Основной класс модуля
  */
@@ -22,6 +27,9 @@ class Module
 
 
     protected static $hl_code = 'OfferChanger';
+    protected static $MODULE_ID = 'pwd.offerchanger';
+
+
 
 	/**
 	 * Обработчик начала отображения страницы
@@ -47,23 +55,28 @@ class Module
 
     protected static function setOffers(){
 
-        if( \CSite::InDir('/index.php') ){
+        $only_index = (Option::get(self::$MODULE_ID , 'only_index') == 'Y') ? true : false ;
 
-            $r = self::getOffers();
-            if(!empty($r)){
-
-                Utils::vardump($r);
-
-            }
+        if( $only_index && !\CSite::InDir('/index.php') ){
+            return false;
         }
+
+
+        $r = self::getOffers();
+        if(!empty($r)){
+            Utils::vardump($r);
+        }
+
 
     }
 
     protected static function getOffers(){
 
-        $res = [];
+        $referrer_name = Option::get(self::$MODULE_ID , 'referrer_name');
+        $referrer_name = $referrer_name !== '' ? $referrer_name : 'referrer' ;
 
-        $arHeaders = HL::getInstance( self::$hl_code )->getHeaders('referrer_2');
+        $res = [];
+        $arHeaders = HL::getInstance( self::$hl_code )->getHeaders($referrer_name);
 
         if(!empty($arHeaders)){
             $res['OFFER'] = $arHeaders['UF_OFFER'];

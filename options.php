@@ -10,7 +10,7 @@
 use Bitrix\Main\Localization\Loc;
 use Bitrix\Main\Config\Option;
 
-$module_id = 'academy.d7'; //обязательно, иначе права доступа не работают!
+$module_id = 'pwd.offerchanger'; //обязательно, иначе права доступа не работают!
 
 Loc::loadMessages($_SERVER["DOCUMENT_ROOT"].BX_ROOT."/modules/main/options.php");
 Loc::loadMessages(__FILE__);
@@ -32,7 +32,13 @@ $aTabs = array(
         'DIV' => 'edit1',
         'TAB' => Loc::getMessage('ACADEMY_D7_TAB_SETTINGS'),
         'OPTIONS' => array(
-            array('field_text', Loc::getMessage('ACADEMY_D7_FIELD_TEXT_TITLE'),
+            array('referrer_name', Loc::getMessage('PWD_OFFER_CHANGER_FIELD_REFERRER_NAME_TITLE'), 'referrer', array('text', 10)),
+
+            array("only_index", GetMessage("PWD_OFFER_CHANGER_FIELD_ONLY_INDEX_TITLE"), "Y", Array("checkbox")),
+
+
+
+            /*array('field_text', Loc::getMessage('ACADEMY_D7_FIELD_TEXT_TITLE'),
                 '',
                 array('textarea', 10, 50)),
             array('field_line', Loc::getMessage('ACADEMY_D7_FIELD_LINE_TITLE'),
@@ -41,6 +47,7 @@ $aTabs = array(
             array('field_list', Loc::getMessage('ACADEMY_D7_FIELD_LIST_TITLE'),
                 '',
                 array('multiselectbox',array('var1'=>'var1','var2'=>'var2','var3'=>'var3','var4'=>'var4'))),
+            */
         )
     ),
     array(
@@ -71,6 +78,10 @@ if ($request->isPost() && $request['Update'] && check_bitrix_sessid())
 
             $optionValue = $request->getPost($optionName);
 
+
+            if ($arOption[3][0] == "checkbox" && $optionValue != "Y")
+                $optionValue = "N";
+
             Option::set($module_id, $optionName, is_array($optionValue) ? implode(",", $optionValue):$optionValue);
         }
     }
@@ -82,7 +93,7 @@ $tabControl = new CAdminTabControl('tabControl', $aTabs);
 
 ?>
 <? $tabControl->Begin(); ?>
-<form method='post' action='<?echo $APPLICATION->GetCurPage()?>?mid=<?=htmlspecialcharsbx($request['mid'])?>&amp;lang=<?=$request['lang']?>' name='academy_d7_settings'>
+<form method='post' action='<?echo $APPLICATION->GetCurPage()?>?mid=<?=htmlspecialcharsbx($request['mid'])?>&amp;lang=<?=$request['lang']?>' name='pwd_offerchanger_settings'>
 
     <? foreach ($aTabs as $aTab):
             if($aTab['OPTIONS']):?>
