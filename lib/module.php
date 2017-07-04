@@ -12,11 +12,8 @@ namespace Pwd\Offerchanger;
 
 use Bitrix\Main\Context,
     \Pwd\Offerchanger\Utils,
-    \Pwd\Offerchanger\HL;
-
-
-
-use Bitrix\Main\Config\Option;
+    \Pwd\Offerchanger\HL,
+    \Bitrix\Main\Config\Option;
 
 
 /**
@@ -36,20 +33,33 @@ class Module
 	 *
 	 * @return void
 	 */
-	public static function onPageStart()
+	public static function onPrologHandler()
 	{
+
+
         //echo "<b>onPageStart();</b>";
+
+        //global $APPLICATION;
+        //$APPLICATION->AddHeadString('<link rel="stylesheet" type="text/css" href="/bitrix/themes/.default/webdebug.ruble.css" />', true);
+
+
 	}
 
-	public static function onPageEnd(){
+	public static function onAfterEpilogHandler(){
 
         //echo "<b>onPageEnd();</b>";
 
-
         self::setOffers();
+
     }
 
 
+
+    protected static function onEndBufferContentHandler(&$content){
+
+        $content = str_replace('<h1 id="pagetitle">Мебельная компания</h1>', '<h1 id="pagetitle">Мебельная компания - Текущее время</h1>', $content);
+
+    }
 
 
 
@@ -92,5 +102,7 @@ class Module
 
         return $res;
     }
+
+
     
 }
