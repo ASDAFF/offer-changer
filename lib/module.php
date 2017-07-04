@@ -10,14 +10,19 @@
 
 namespace Pwd\Offerchanger;
 
-use Bitrix\Main\Context;
-
+use Bitrix\Main\Context,
+    \Pwd\Offerchanger\Utils,
+    \Pwd\Offerchanger\HL;
 
 /**
  * Основной класс модуля
  */
 class Module
 {
+
+
+    protected static $hl_code = 'OfferChanger';
+
 	/**
 	 * Обработчик начала отображения страницы
 	 *
@@ -25,27 +30,54 @@ class Module
 	 */
 	public static function onPageStart()
 	{
-		self::defineConstants();
-
-        echo "<b>onPageStart();</b>";
-        //die();
+        //echo "<b>onPageStart();</b>";
 	}
 
-	public static function onAfterEpilog(){
+	public static function onPageEnd(){
 
-        echo "<b>onAfterEpilog();</b>";
-        //die();
+        //echo "<b>onPageEnd();</b>";
+
+
+        self::setOffers();
+    }
+
+
+
+
+
+    protected static function setOffers(){
+
+        if( \CSite::InDir('/index.php') ){
+
+            $r = self::getOffers();
+            if(!empty($r)){
+
+                Utils::vardump($r);
+
+            }
+        }
 
     }
-	
-	/**
-	 *
-	 * @return void
-	 */
-	protected static function defineConstants()
-	{
-        define('MyConstant','MyConstant_VALUE');
 
-	}
+    protected static function getOffers(){
+
+        $res = [];
+
+        $arHeaders = HL::getInstance( self::$hl_code )->getHeaders('referrer_2');
+
+        if(!empty($arHeaders)){
+            $res['OFFER'] = $arHeaders['UF_OFFER'];
+            $res['BANNER_TMP'] = \CFile::GetFileArray($arHeaders['UF_BANNER']);
+
+            if(!empty($res['BANNER_TMP'])){
+                $res['BANNER'] = $res['BANNER_TMP']['SRC'];
+            }
+            unset($res['BANNER_TMP']);
+
+            $res['OFFER_TEXT'] = $arHeaders['UF_OFFER_TEXT'];
+        }
+
+        return $res;
+    }
     
 }

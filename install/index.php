@@ -45,6 +45,7 @@ Class pwd_offerchanger extends CModule
             'LIST_COLUMN_LABEL' => [
                 'ru' => 'Значение параметра, инициализирующего замену',
             ],
+            'SETTINGS' => array(),
 		),
 		'UF_OFFER' => array(
 			'MANDATORY' => 'N',
@@ -55,6 +56,10 @@ Class pwd_offerchanger extends CModule
             'LIST_COLUMN_LABEL' => [
                 'ru' => 'Оффер',
             ],
+
+            'SETTINGS' => array(
+                'SIZE' => '60'
+            ),
 		),
 		'UF_BANNER' => array(
 			'MANDATORY' => 'N',
@@ -65,7 +70,26 @@ Class pwd_offerchanger extends CModule
             'LIST_COLUMN_LABEL' => [
                 'ru' => 'Баннер',
             ],
-		)
+            'SETTINGS' => array(
+                'LIST_WIDTH' => '150',
+                'LIST_HEIGHT' => '150',
+            ),
+		),
+        'UF_OFFER_TEXT' => array(
+            'MANDATORY' => 'N',
+            'USER_TYPE_ID' => 'string',
+            'EDIT_FORM_LABEL' => [
+                'ru' => 'Текст оффера',
+            ],
+            'LIST_COLUMN_LABEL' => [
+                'ru' => 'Текст оффера',
+            ],
+
+            'SETTINGS' => array(
+                'SIZE' => '60',
+                'ROWS' => '3',
+            ),
+        ),
 	);
 
     protected $eventHandlers = array();
@@ -90,8 +114,6 @@ Class pwd_offerchanger extends CModule
         $this->SHOW_SUPER_ADMIN_GROUP_RIGHTS='Y';
         $this->MODULE_GROUP_RIGHTS = "Y";
 
-
-
         $this->eventHandlers = array(
             array(
                 'main',
@@ -103,13 +125,7 @@ Class pwd_offerchanger extends CModule
                 'main',
                 'OnAfterEpilog',
                 '\Pwd\Offerchanger\Module',
-                'onAfterEpilog',
-            ),
-            array(
-                'main',
-                'OnBeforeProlog',
-                '\Pwd\Offerchanger\Module',
-                'onAfterEpilog',
+                'onPageEnd',
             ),
         );
 	}
@@ -191,7 +207,7 @@ Class pwd_offerchanger extends CModule
 						'SHOW_IN_LIST'      => 'Y',
 						'EDIT_IN_LIST'      => 'Y',
 						'IS_SEARCHABLE'     => 'N',
-						'SETTINGS'          => array(),
+						'SETTINGS'          => $arField['SETTINGS'],
 						'EDIT_FORM_LABEL'   => $arField['EDIT_FORM_LABEL'],
 						'LIST_COLUMN_LABEL' => $arField['LIST_COLUMN_LABEL'],
 					);
