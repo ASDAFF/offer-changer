@@ -35,13 +35,10 @@ class Module
 	 */
 	public static function onPrologHandler()
 	{
-
-
         //echo "<b>onPageStart();</b>";
 
         //global $APPLICATION;
         //$APPLICATION->AddHeadString('<link rel="stylesheet" type="text/css" href="/bitrix/themes/.default/webdebug.ruble.css" />', true);
-
 
 	}
 
@@ -57,9 +54,23 @@ class Module
 
     protected static function onEndBufferContentHandler(&$content){
 
+
+        Utils::vardump(123);
+
         $content = str_replace('<h1 id="pagetitle">Мебельная компания</h1>', '<h1 id="pagetitle">Мебельная компания - Текущее время</h1>', $content);
 
     }
+
+
+    protected static function onBeforeEndBufferContentHandler(&$content){
+
+
+        Utils::vardump(123);
+
+        $content = str_replace('<h1 id="pagetitle">Мебельная компания</h1>', '<h1 id="pagetitle">Мебельная компания - Текущее время</h1>', $content);
+
+    }
+
 
 
 

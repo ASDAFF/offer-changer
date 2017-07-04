@@ -116,20 +116,26 @@ Class pwd_offerchanger extends CModule
             array(
                 'main',
                 'OnProlog',
-                'Pwd\Offerchanger\Module',
+                "Pwd\\Offerchanger\\Module",
                 'onPrologHandler',
             ),
             array(
                 'main',
                 'OnAfterEpilog',
-                'Pwd\Offerchanger\Module',
+                "Pwd\\Offerchanger\\Module",
                 'onAfterEpilogHandler',
             ),
             array(
                 'main',
                 'OnEndBufferContent',
-                'Pwd\Offerchanger\Module',
+                "Pwd\\Offerchanger\\Module",
                 'onEndBufferContentHandler',
+            ),
+            array(
+                'main',
+                'OnBeforeEndBufferContent',
+                "Pwd\\Offerchanger\\Module",
+                'onBeforeEndBufferContentHandler',
             ),
 
         );

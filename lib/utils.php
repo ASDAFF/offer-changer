@@ -10,7 +10,7 @@ namespace Pwd\Offerchanger;
 class Utils
 {
 
-	public function vardump($r)
+	public static function vardump($r)
 	{
 
 
