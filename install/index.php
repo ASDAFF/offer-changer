@@ -87,6 +87,38 @@ Class pwd_offerchanger extends CModule
                 'LIST_HEIGHT' => '150',
             ),
         ),
+        'UF_TYPE' => array(
+            'MANDATORY' => 'N',
+            'USER_TYPE_ID' => 'enumeration',
+            'EDIT_FORM_LABEL' => [
+                'ru' => 'Тип',
+            ],
+            'LIST_COLUMN_LABEL' => [
+                'ru' => 'Тип',
+            ],
+            'SETTINGS' => array(),
+            'VALUES' => [
+                'n0' => [
+                    'XML_ID' => 'STRING',
+                    'VALUE' => 'Строка',
+                    'DEF' => 'Y',
+                    'SORT' => '10'
+                ],
+                'n1' => [
+                    'XML_ID' => 'BG',
+                    'VALUE' => 'Фон (background-image)',
+                    'DEF' => 'N',
+                    'SORT' => '20'
+                ],
+                'n2' => [
+                    'XML_ID' => 'IMG',
+                    'VALUE' => 'Изображение (img)',
+                    'DEF' => 'N',
+                    'SORT' => '30'
+                ],
+            ]
+        ),
+
 
     );
 
@@ -213,6 +245,15 @@ Class pwd_offerchanger extends CModule
                     );
 
                     $fieldId = $obUField->Add($arFieldProps);
+
+                    if($arField['USER_TYPE_ID'] == 'enumeration'){
+
+
+                        $obEnum = new CUserFieldEnum();
+                        $obEnum->SetEnumValues($fieldId, $arField['VALUES']);
+
+                    }
+
 
                     if (empty($fieldId)) {
                         throw new SystemException(Loc::getMessage('HIGHLOADBLOCK_ADDING_INFO_ERROR', array(

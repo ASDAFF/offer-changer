@@ -103,8 +103,52 @@ class Module
         $r_list = self::getOffers();
         if (!empty($r_list) && count($r_list)) {
             foreach ($r_list as $r_item) {
-                if (!empty($r_item['ID']) && !empty($r_item['TEXT'])) {
-                    $doc->getElementById($r_item['ID'])->textContent = $r_item['TEXT'];
+
+
+
+                if(empty($r_item['ID'])){
+                    continue;
+                }
+
+                $dom_element = $doc->getElementById($r_item['ID']);
+
+                Utils::vardump($r_item);
+
+                switch ($r_item['TYPE']){
+                    case 'BG':
+                        //background-image:
+
+                        if (!empty($r_item['BANNER']) && strlen($r_item['BANNER'])) {
+
+                            $new_styles = 'background-image: url("'.$r_item['BANNER'].'");';
+
+                            $old_styles = $dom_element->getAttribute('style');
+                            $dom_element->setAttribute( 'style',$old_styles." ".$new_styles );
+
+                        }
+
+                        break;
+                    case 'IMG':
+                        //Изображения
+                        if (!empty($r_item['BANNER']) && strlen($r_item['BANNER'])) {
+
+                            $new_img = $r_item['BANNER'];
+
+                            $old_img = $dom_element->getAttribute('src');
+                            $dom_element->setAttribute( 'src', $new_img);
+                            $dom_element->setAttribute( 'data-old-src', $old_img);
+
+                        }
+                        break;
+                    case 'STRING':
+                    default:
+                        //строка
+
+                        if (!empty($r_item['TEXT'])) {
+                            $dom_element->textContent = $r_item['TEXT'];
+                        }
+
+                    break;
                 }
             }
         }
@@ -132,6 +176,19 @@ class Module
 
             if (!empty($arHeader)) {
                 $res = array();
+
+
+                if($arHeader['UF_TYPE']>0){
+                    $rsGender = \CUserFieldEnum::GetList(array(), array("ID" => $arHeader['UF_TYPE']));
+
+                    if($arGender = $rsGender->GetNext()){
+                        $res['TYPE'] = $arGender['XML_ID'];
+                    }
+
+                }else{
+                    $res['TYPE'] = 'STRING';
+                }
+
 
                 $res['ID'] = $arHeader['UF_BLOCK_ID'];
                 $res['TEXT'] = $arHeader['UF_BLOCK_TEXT'];
