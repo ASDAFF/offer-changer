@@ -37,10 +37,10 @@ Class pwd_offerchanger extends CModule
             'MANDATORY' => 'Y',
             'USER_TYPE_ID' => 'string',
             'EDIT_FORM_LABEL' => [
-                'ru' => 'Значение параметра, инициализирующего замену',
+                'ru' => 'Значение параметра',
             ],
             'LIST_COLUMN_LABEL' => [
-                'ru' => 'Значение параметра, инициализирующего замену',
+                'ru' => 'Значение параметра',
             ],
             'SETTINGS' => array(),
         ),
@@ -48,10 +48,10 @@ Class pwd_offerchanger extends CModule
             'MANDATORY' => 'Y',
             'USER_TYPE_ID' => 'string',
             'EDIT_FORM_LABEL' => [
-                'ru' => 'ID блока',
+                'ru' => 'ID dom-элемента',
             ],
             'LIST_COLUMN_LABEL' => [
-                'ru' => 'ID блока',
+                'ru' => 'ID dom-элемента',
             ],
 
             'SETTINGS' => array(
@@ -62,10 +62,10 @@ Class pwd_offerchanger extends CModule
             'MANDATORY' => 'N',
             'USER_TYPE_ID' => 'string',
             'EDIT_FORM_LABEL' => [
-                'ru' => 'Текст блока',
+                'ru' => 'Текст для замены',
             ],
             'LIST_COLUMN_LABEL' => [
-                'ru' => 'Текст блока',
+                'ru' => 'Текст для замены',
             ],
 
             'SETTINGS' => array(
@@ -77,10 +77,10 @@ Class pwd_offerchanger extends CModule
             'MANDATORY' => 'N',
             'USER_TYPE_ID' => 'file',
             'EDIT_FORM_LABEL' => [
-                'ru' => 'Баннер',
+                'ru' => 'Изображение',
             ],
             'LIST_COLUMN_LABEL' => [
-                'ru' => 'Баннер',
+                'ru' => 'Изображение',
             ],
             'SETTINGS' => array(
                 'LIST_WIDTH' => '150',
@@ -91,10 +91,10 @@ Class pwd_offerchanger extends CModule
             'MANDATORY' => 'N',
             'USER_TYPE_ID' => 'enumeration',
             'EDIT_FORM_LABEL' => [
-                'ru' => 'Тип',
+                'ru' => 'Тип замены',
             ],
             'LIST_COLUMN_LABEL' => [
-                'ru' => 'Тип',
+                'ru' => 'Тип замены',
             ],
             'SETTINGS' => array(),
             'VALUES' => [
