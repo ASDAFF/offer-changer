@@ -112,8 +112,6 @@ class Module
 
                 $dom_element = $doc->getElementById($r_item['ID']);
 
-                Utils::vardump($r_item);
-
                 switch ($r_item['TYPE']){
                     case 'BG':
                         //background-image:
