@@ -112,6 +112,11 @@ class Module
 
                 $dom_element = $doc->getElementById($r_item['ID']);
 
+                if( empty($dom_element) || !is_object( $dom_element )){
+                    continue;
+                }
+
+
                 switch ($r_item['TYPE']){
                     case 'BG':
                         //background-image:
