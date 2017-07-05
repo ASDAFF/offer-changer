@@ -2,6 +2,7 @@
 
 namespace Pwd\Offerchanger;
 
+use Bitrix\Blog\Util;
 use Bitrix\Main\Context;
 use Bitrix\Main\Data\Cache;
 use Bitrix\Main\Entity;
@@ -13,7 +14,7 @@ if (!Loader::includeModule('highloadblock')) {
 	throw new Main\Exception("Highloadblock module is't installed.");
 }
 
-class HL extends Entity\DataManager
+class Hl extends Entity\DataManager
 {
 	/**
 	 * Flag that constants are defined
@@ -198,6 +199,7 @@ class HL extends Entity\DataManager
 	{
 
 		$arParams = $event->getParameters();
+
 
 		$param = !empty($arParams['fields']['UF_PARAMETER']) ? 'campaign_offer_' . $arParams['fields']['UF_PARAMETER'] : 'campaign_offer';
 		$obCacheTag = Application::getInstance()->getTaggedCache();

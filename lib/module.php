@@ -10,7 +10,7 @@ namespace Pwd\Offerchanger;
 
 use \Bitrix\Main\Context,
     \Pwd\Offerchanger\Utils as Utils,
-    \Pwd\Offerchanger\HL as HL,
+    \Pwd\Offerchanger\Hl as HL,
     \Bitrix\Main\Config\Option,
     \Bitrix\Main\EventManager;
 
@@ -31,9 +31,7 @@ class Module
     public static function onPageStart()
     {
 
-        if( ! \CSite::InDir('/bitrix/') ){
-            self::setupEventHandlers();
-        }
+        self::setupEventHandlers();
 
     }
 
@@ -50,18 +48,26 @@ class Module
         $eventManager->addEventHandler(
             "",
             "OfferChangerOnAfterUpdate",
-            array('\Pwd\Offerchanger\HL', 'HeadersOnAfterUpdateHandler')
+            array('\Pwd\Offerchanger\Hl', 'HeadersOnAfterUpdateHandler')
         );
         $eventManager->addEventHandler(
             "",
             "OfferChangerOnAfterAdd",
-            array('\Pwd\Offerchanger\HL', 'HeadersOnAfterUpdateHandler')
+            array('\Pwd\Offerchanger\Hl', 'HeadersOnAfterUpdateHandler')
         );
-        $eventManager->addEventHandler(
-            "main",
-            "OnEndBufferContent",
-            array('\Pwd\Offerchanger\Module', 'onEndBufferContentHandler')
-        );
+
+        if( ! \CSite::InDir('/bitrix/') ){
+
+            $eventManager->addEventHandler(
+                "main",
+                "OnEndBufferContent",
+                array('\Pwd\Offerchanger\Module', 'onEndBufferContentHandler')
+            );
+
+        }
+
+
+
     }
 
     /**

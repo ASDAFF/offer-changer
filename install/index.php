@@ -73,7 +73,7 @@ Class pwd_offerchanger extends CModule
                 'ROWS' => '3',
             ),
         ),
-        /*'UF_BANNER' => array(
+        'UF_BANNER' => array(
             'MANDATORY' => 'N',
             'USER_TYPE_ID' => 'file',
             'EDIT_FORM_LABEL' => [
@@ -86,7 +86,7 @@ Class pwd_offerchanger extends CModule
                 'LIST_WIDTH' => '150',
                 'LIST_HEIGHT' => '150',
             ),
-        ),*/
+        ),
 
     );
 
