@@ -7,18 +7,12 @@
  */
 
 use Bitrix\Highloadblock\HighloadBlockTable;
-use Bitrix\Main\Config\Configuration;
 use Bitrix\Main\IO\Directory;
 use Bitrix\Main\IO\InvalidPathException;
 use \Bitrix\Main\Localization\Loc;
-use \Bitrix\Main\Config as Conf;
-use \Bitrix\Main\Config\Option;
 use \Bitrix\Main\Loader;
-use \Bitrix\Main\Entity\Base;
 use \Bitrix\Main\Application;
 use Bitrix\Main\ModuleManager;
-use Bitrix\Highloadblock as HL;
-use Bitrix\Main\Entity;
 use Bitrix\Main\SystemException;
 
 Loc::loadMessages(__FILE__);
@@ -33,10 +27,14 @@ Class pwd_offerchanger extends CModule
     var $exclusionAdminFiles;
     var $hlName = 'OfferChanger';
     var $hlTableName = 'offer_changer';
+    var $langs = array(
+        'ru' => 'HL Подмена офферов',
+        'en' => 'HL Offer Changer',
+    );
 
     private $arFields = array(
         'UF_PARAMETER' => array(
-            'MANDATORY' => 'N',
+            'MANDATORY' => 'Y',
             'USER_TYPE_ID' => 'string',
             'EDIT_FORM_LABEL' => [
                 'ru' => 'Значение параметра, инициализирующего замену',
@@ -46,21 +44,36 @@ Class pwd_offerchanger extends CModule
             ],
             'SETTINGS' => array(),
         ),
-        'UF_OFFER' => array(
-            'MANDATORY' => 'N',
+        'UF_BLOCK_ID' => array(
+            'MANDATORY' => 'Y',
             'USER_TYPE_ID' => 'string',
             'EDIT_FORM_LABEL' => [
-                'ru' => 'Оффер',
+                'ru' => 'ID блока',
             ],
             'LIST_COLUMN_LABEL' => [
-                'ru' => 'Оффер',
+                'ru' => 'ID блока',
             ],
 
             'SETTINGS' => array(
                 'SIZE' => '60'
             ),
         ),
-        'UF_BANNER' => array(
+        'UF_BLOCK_TEXT' => array(
+            'MANDATORY' => 'N',
+            'USER_TYPE_ID' => 'string',
+            'EDIT_FORM_LABEL' => [
+                'ru' => 'Текст блока',
+            ],
+            'LIST_COLUMN_LABEL' => [
+                'ru' => 'Текст блока',
+            ],
+
+            'SETTINGS' => array(
+                'SIZE' => '60',
+                'ROWS' => '3',
+            ),
+        ),
+        /*'UF_BANNER' => array(
             'MANDATORY' => 'N',
             'USER_TYPE_ID' => 'file',
             'EDIT_FORM_LABEL' => [
@@ -73,22 +86,8 @@ Class pwd_offerchanger extends CModule
                 'LIST_WIDTH' => '150',
                 'LIST_HEIGHT' => '150',
             ),
-        ),
-        'UF_OFFER_TEXT' => array(
-            'MANDATORY' => 'N',
-            'USER_TYPE_ID' => 'string',
-            'EDIT_FORM_LABEL' => [
-                'ru' => 'Текст оффера',
-            ],
-            'LIST_COLUMN_LABEL' => [
-                'ru' => 'Текст оффера',
-            ],
+        ),*/
 
-            'SETTINGS' => array(
-                'SIZE' => '60',
-                'ROWS' => '3',
-            ),
-        ),
     );
 
     protected $eventHandlers = array();
@@ -115,27 +114,9 @@ Class pwd_offerchanger extends CModule
         $this->eventHandlers = array(
             array(
                 'main',
-                'OnProlog',
-                "Pwd\\Offerchanger\\Module",
-                'onPrologHandler',
-            ),
-            array(
-                'main',
-                'OnAfterEpilog',
-                "Pwd\\Offerchanger\\Module",
-                'onAfterEpilogHandler',
-            ),
-            array(
-                'main',
-                'OnEndBufferContent',
-                "Pwd\\Offerchanger\\Module",
-                'onEndBufferContentHandler',
-            ),
-            array(
-                'main',
-                'OnBeforeEndBufferContent',
-                "Pwd\\Offerchanger\\Module",
-                'onBeforeEndBufferContentHandler',
+                'OnPageStart',
+                '\Pwd\Offerchanger\Module',
+                'onPageStart',
             ),
 
         );
@@ -184,6 +165,15 @@ Class pwd_offerchanger extends CModule
 
                 if ($result->isSuccess()) {
                     $hlID = $result->getId();
+
+                    /*HighloadBlockTable::update(
+                        $hlID,
+                        array(
+                            'LANGS' => $this->langs,
+                        )
+                    );*/
+
+
                 } else {
                     throw new SystemException(Loc::getMessage('HIGHLOADBLOCK_ADDED_INFO_ERROR', array(
                         '#NAME#' => $this->hlName,
@@ -301,6 +291,7 @@ Class pwd_offerchanger extends CModule
                 $handler[2],
                 $handler[3]
             );
+
         }
 
         return true;
@@ -308,8 +299,6 @@ Class pwd_offerchanger extends CModule
 
     function UnInstallEvents()
     {
-
-
 
         $eventManager = \Bitrix\Main\EventManager::getInstance();
 
@@ -321,6 +310,7 @@ Class pwd_offerchanger extends CModule
                 $handler[2],
                 $handler[3]
             );
+
         }
 
         return true;

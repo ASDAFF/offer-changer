@@ -12,9 +12,9 @@ use \Bitrix\Main\Localization\Loc;
 if (!check_bitrix_sessid())
 	return;
 
-#работа с .settings.php
-$arInstalls = Configuration::getInstance()->get('academy_module_d7');
-#работа с .settings.php
+
+$arInstalls = Configuration::getInstance()->get('pwd_offerchanger');
+
 
 if ($ex = $APPLICATION->GetException())
 	echo CAdminMessage::ShowMessage(array(

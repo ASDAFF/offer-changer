@@ -176,8 +176,8 @@ class HL extends Entity\DataManager
 				'filter' => array(
 					'UF_PARAMETER' => $campaign
 				),
-				'limit' => 1
-			))->fetch();
+				'limit' => 20
+			))->fetchAll();
 
 			$obCacheTag->registerTag($tagName);
 			$obCacheTag->endTagCache();
@@ -196,7 +196,9 @@ class HL extends Entity\DataManager
 	 */
 	public function HeadersOnAfterUpdateHandler(\Bitrix\Main\Entity\Event $event)
 	{
+
 		$arParams = $event->getParameters();
+
 		$param = !empty($arParams['fields']['UF_PARAMETER']) ? 'campaign_offer_' . $arParams['fields']['UF_PARAMETER'] : 'campaign_offer';
 		$obCacheTag = Application::getInstance()->getTaggedCache();
 		$obCacheTag->clearByTag($param);

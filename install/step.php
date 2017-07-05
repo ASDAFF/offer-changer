@@ -12,11 +12,10 @@ use \Bitrix\Main\Localization\Loc;
 if (!check_bitrix_sessid())
 	return;
 
-#работа с .settings.php
 $arInstalls= Configuration::getInstance()->get('pwd_offerchanger');
 
 $cache_type= Configuration::getInstance()->get('cache');
-#работа с .settings.php
+
 
 if ($ex = $APPLICATION->GetException()){
 	echo CAdminMessage::ShowMessage(array(
