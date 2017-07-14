@@ -42,6 +42,9 @@ Class pwd_offerchanger extends CModule
             'LIST_COLUMN_LABEL' => [
                 'ru' => 'Значение параметра',
             ],
+            'HELP_MESSAGE' => [
+                'ru' => 'Значение GET-параметр в URL, например: ?referrer=value , "value" - является значением параметра',
+            ],
             'SETTINGS' => array(),
         ),
         'UF_BLOCK_ID' => array(
@@ -53,7 +56,9 @@ Class pwd_offerchanger extends CModule
             'LIST_COLUMN_LABEL' => [
                 'ru' => 'ID dom-элемента',
             ],
-
+            'HELP_MESSAGE' => [
+                'ru' => 'Например: <div id="some-id" class="some-class"/> , "some-id" - и есть необходимый ID',
+            ],
             'SETTINGS' => array(
                 'SIZE' => '60'
             ),
@@ -67,7 +72,9 @@ Class pwd_offerchanger extends CModule
             'LIST_COLUMN_LABEL' => [
                 'ru' => 'Текст для замены',
             ],
-
+            'HELP_MESSAGE' => [
+                'ru' => '',
+            ],
             'SETTINGS' => array(
                 'SIZE' => '60',
                 'ROWS' => '3',
@@ -82,6 +89,9 @@ Class pwd_offerchanger extends CModule
             'LIST_COLUMN_LABEL' => [
                 'ru' => 'Изображение',
             ],
+            'HELP_MESSAGE' => [
+                'ru' => '',
+            ],
             'SETTINGS' => array(
                 'LIST_WIDTH' => '150',
                 'LIST_HEIGHT' => '150',
@@ -95,6 +105,9 @@ Class pwd_offerchanger extends CModule
             ],
             'LIST_COLUMN_LABEL' => [
                 'ru' => 'Тип замены',
+            ],
+            'HELP_MESSAGE' => [
+                'ru' => '',
             ],
             'SETTINGS' => array(),
             'VALUES' => [
@@ -242,6 +255,7 @@ Class pwd_offerchanger extends CModule
                         'SETTINGS' => $arField['SETTINGS'],
                         'EDIT_FORM_LABEL' => $arField['EDIT_FORM_LABEL'],
                         'LIST_COLUMN_LABEL' => $arField['LIST_COLUMN_LABEL'],
+                        'HELP_MESSAGE' => $arField['HELP_MESSAGE'],
                     );
 
                     $fieldId = $obUField->Add($arFieldProps);
