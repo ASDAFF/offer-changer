@@ -56,29 +56,29 @@ class Offer
 
             foreach ($arListOffers as $arOfferItem) {
 
-
-
-                if(empty($arOfferItem['ID'])){
+                if (empty($arOfferItem['ID'])) {
                     continue;
                 }
+
+                $arOfferItem['ID'] = trim($arOfferItem['ID']);
 
                 $objDomElement = $objDocument->getElementById($arOfferItem['ID']);
 
-                if( empty($objDomElement) || !is_object( $objDomElement )){
+                if (empty($objDomElement) || !is_object($objDomElement)) {
                     continue;
                 }
 
 
-                switch ($arOfferItem['TYPE']){
+                switch ($arOfferItem['TYPE']) {
                     case 'BG':
                         //background-image:
 
                         if (!empty($arOfferItem['BANNER']) && strlen($arOfferItem['BANNER'])) {
 
-                            $strNewStyles = 'background-image: url("'.$arOfferItem['BANNER'].'");';
+                            $strNewStyles = 'background-image: url("' . $arOfferItem['BANNER'] . '");';
                             $strOldStyles = $objDomElement->getAttribute('style');
 
-                            $objDomElement->setAttribute( 'style',$strOldStyles." ".$strNewStyles );
+                            $objDomElement->setAttribute('style', $strOldStyles . " " . $strNewStyles);
 
                         }
 
@@ -90,19 +90,17 @@ class Offer
                             $strNewImg = $arOfferItem['BANNER'];
                             $strOldImg = $objDomElement->getAttribute('src');
 
-                            $objDomElement->setAttribute( 'src', $strNewImg);
-                            $objDomElement->setAttribute( 'data-old-src', $strOldImg);
+                            $objDomElement->setAttribute('src', $strNewImg);
+                            $objDomElement->setAttribute('data-old-src', $strOldImg);
 
                         }
                         break;
                     case 'STRING':
                     default:
                         //строка
-
                         if (!empty($arOfferItem['TEXT'])) {
                             $objDomElement->textContent = $arOfferItem['TEXT'];
                         }
-
                         break;
                 }
             }
@@ -133,14 +131,14 @@ class Offer
                 $arResOffer = array();
 
 
-                if($arHeader['UF_TYPE']>0){
+                if ($arHeader['UF_TYPE'] > 0) {
                     $rsGender = \CUserFieldEnum::GetList(array(), array("ID" => $arHeader['UF_TYPE']));
 
-                    if($arGender = $rsGender->GetNext()){
+                    if ($arGender = $rsGender->GetNext()) {
                         $arResOffer['TYPE'] = $arGender['XML_ID'];
                     }
 
-                }else{
+                } else {
                     $arResOffer['TYPE'] = 'STRING';
                 }
 
