@@ -85,6 +85,10 @@ class Hl extends Entity\DataManager
 	 */
 	public function compileEntity($hlId)
 	{
+	    if(empty($hlId)){
+	        return;
+        }
+
 		Loader::includeModule('highloadblock');
 		$hlblock = HighloadBlockTable::getById($hlId)->fetch();
 		$entity = HighloadBlockTable::compileEntity( $hlblock ); //генерация класса
@@ -159,6 +163,11 @@ class Hl extends Entity\DataManager
 	 */
 	public function getHeaders($referrer_name = 'referrer' , $cacheTime = 86400)
 	{
+	    if(empty($this->id)){
+	        return;
+        }
+
+
 		$arReq = Context::getCurrent()->getRequest()->toArray();
 		$campaign = ( empty($arReq[$referrer_name]) ) ? false : $arReq[$referrer_name];
 

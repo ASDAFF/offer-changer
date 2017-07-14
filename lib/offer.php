@@ -122,6 +122,7 @@ class Offer
         $strReferrerName = Option::get(self::$strModuleId, 'referrer_name');
         $strReferrerName = $strReferrerName !== '' ? $strReferrerName : 'referrer';
 
+
         $arHeaders = HL::getInstance(self::$strHlCode)->getHeaders($strReferrerName);
 
         $arOffersList = [];
