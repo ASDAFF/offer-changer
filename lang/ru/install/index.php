@@ -7,8 +7,8 @@
  */
 
 
-$MESS["PWD_OFFER_CHANGER_MODULE_NAME"] = "Модуль подмены офферов";
-$MESS["PWD_OFFER_CHANGER_MODULE_DESC"] = "Модуль совершает подмены элементов на странице сайта в зависимости от параметров адресной строки";
+$MESS["PWD_OFFER_CHANGER_MODULE_NAME"] = "Персонализатор";
+$MESS["PWD_OFFER_CHANGER_MODULE_DESC"] = "Модуль совершает подмены элементов(текст,изображение) на странице сайта в зависимости от параметров адресной строки";
 $MESS["PWD_OFFER_CHANGER_PARTNER_NAME"] = "Pride Web Development";
 $MESS["PWD_OFFER_CHANGER_PARTNER_URI"] = "http://p-w-d.ru/";
 

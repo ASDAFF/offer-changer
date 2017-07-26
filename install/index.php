@@ -202,22 +202,14 @@ Class pwd_offerchanger extends CModule
 
             if (empty($arHlBlock)) {
                 $data = array(
-                    'NAME' => $this->hlName,
-                    'TABLE_NAME' => $this->hlTableName,
+                    'NAME' => $this->hlName, //должно начинаться с заглавной буквы и состоять только из латинских букв и цифр
+                    'TABLE_NAME' => $this->hlTableName,//должно состоять только из строчных латинских букв, цифр и знака подчеркивания
                 );
 
                 $result = HighloadBlockTable::add($data);
 
                 if ($result->isSuccess()) {
                     $hlID = $result->getId();
-
-                    /*HighloadBlockTable::update(
-                        $hlID,
-                        array(
-                            'LANGS' => $this->langs,
-                        )
-                    );*/
-
 
                 } else {
                     throw new SystemException(Loc::getMessage('HIGHLOADBLOCK_ADDED_INFO_ERROR', array(

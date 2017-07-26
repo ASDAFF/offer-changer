@@ -9,6 +9,7 @@
 namespace Pwd\Offerchanger;
 
 use \Bitrix\Main\EventManager;
+use  \Bitrix\Main\Config\Option;
 
 /**
  * Основной класс модуля
@@ -17,6 +18,7 @@ class Module
 {
 
 
+    protected static $strModuleId = 'pwd.offerchanger';
 
     /**
      * Обработчик начала отображения страницы
@@ -26,7 +28,13 @@ class Module
     public static function onPageStart()
     {
 
-        self::setupEventHandlers();
+        $isActive = (Option::get(self::$strModuleId, 'active') == 'Y') ? true : false;
+
+
+        if($isActive){
+            self::setupEventHandlers();
+        }
+
 
     }
 
