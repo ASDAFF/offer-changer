@@ -48,7 +48,18 @@ class Offer
             return false;
         }
 
+
+        if (!class_exists('DOMDocument')) {
+            return false;
+        }
+
         $objDocument = new \DOMDocument();
+
+        if (!is_object($objDocument)) {
+            return false;
+        }
+
+
         $objDocument->loadHTML($content);
 
         $arListOffers = self::getOffers();
